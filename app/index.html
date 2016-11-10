@@ -16,6 +16,7 @@
 			</div>
 		</div>
 		<div class="panel-body">
+			Search term: <input type="text" ng-model="$ctrl.searchText">
 			<table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
@@ -23,26 +24,36 @@
 						<th>Category</th>
 						<th>Expiry</th>
 						<th class="text-right">Price</th>
+						<th>JSON</th>
+						<!--<th>CustomSort</th>-->
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="p in $ctrl.products">
-						<td>{{p.name}}</td>
-						<td>{{p.category}}</td>
-						<td>{{p.expiry}}</td>
-						<td class="text-right">{{p.price}}</td>
+					<!--<tr ng-repeat="p in $ctrl.products | limitTo: 3">-->
+					<!--<tr ng-repeat="p in $ctrl.products | orderBy: [$ctrl.customSort, 'price']">-->
+					<!--<tr ng-repeat="p in $ctrl.products | filter: $ctrl.searchText">-->
+					<!--<tr ng-repeat="p in $ctrl.products | filter: $ctrl.selectItems">-->
+					<tr ng-repeat="p in $ctrl.products | take: 1 : 1">
+						<td>{{p.name | labelCase: true}}</td>
+						<td>{{p.category | uppercase}}</td>
+						<td></td>
+						<!--<td>{{$ctrl.getExpiryDate(p.expiry) | date: "dd MMM yyyy"}}</td>-->
+						<td class="text-right">{{p.price | currency }}</td>
+						<td>{{p | json}}</td>
+						<!--<td>{{$ctrl.customSort(p)}}</td>-->
 					</tr>
 				</tbody>
 			</table>
 
 			<!-- linky example -->
-			<!-- <div ng-bind-html="$ctrl.htmlSnippet"></div> -->
-			<!-- <div ng-bind-html="$ctrl.htmlSnippet | linky"></div> -->
+			 <div ng-bind-html="$ctrl.htmlSnippet"></div>
+			 <div ng-bind-html="$ctrl.htmlSnippet | linky"></div>
 		</div>
 	<div>
 
 	<script src="vendor/angular/angular.min.js"></script>
 	<script src="vendor/angular-sanitize/angular-sanitize.min.js"></script>
+	<script src="vendor/angular-i18n/angular-locale_ru-ru.js"></script>
 
 	
 	<script src="app.js"></script>
